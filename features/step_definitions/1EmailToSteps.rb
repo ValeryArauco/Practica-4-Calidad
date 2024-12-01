@@ -1,4 +1,4 @@
-When(/^hago click en "(.*)"$/) do |link_text|
+When(/^hago click en el enlace "(.*)"$/) do |link_text|
     @clicked_link = find_link(link_text)[:href]
 end
   
