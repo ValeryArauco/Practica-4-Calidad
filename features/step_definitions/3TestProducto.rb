@@ -2,7 +2,7 @@ Given(/^hago click en el boton "Enter GMO Online"$/) do
     click_button("bSubmit")
 end
 
-When(/^hago click en "([^"]*)"$/) do |producto|
+When(/^hago click en un producto "([^"]*)"$/) do |producto|
     xpath_base = "/html/body/form/table/tbody/tr[2]/td/div/center/table/tbody/tr[5]/td[2]/a/strong"
     find(:xpath, xpath_base).click
 end
