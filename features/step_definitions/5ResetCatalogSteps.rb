@@ -1,4 +1,3 @@
-# Paso para ingresar cantidades válidas para los items
 When(/^ingreso las cantidades para los items$/) do |table|
     within('body > form > table > tbody > tr:nth-child(2) > td > div > center > table') do
       table.hashes.each do |row|
@@ -11,12 +10,10 @@ When(/^ingreso las cantidades para los items$/) do |table|
 end
   
 
-# Paso para hacer clic en un botón específico
 When(/^hago click sobre el botón "(.*)"$/) do |button_text|
     click_button(button_text)
 end
 
-# Paso para verificar que todas las cantidades se reinician a cero
 Then(/^verifico que las cantidades se reinicien a cero para los items$/) do |table|
 within('body > form > table > tbody > tr:nth-child(2) > td > div > center > table') do
     table.hashes.each do |row|
