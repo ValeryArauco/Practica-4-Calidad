@@ -1,4 +1,4 @@
-Given(/^hago click en el boton ([^"]*)""$/) do |boton|
+Given(/^hago click en el boton "([^"]*)"$/) do |boton|
   if (boton == "Enter GMO Online" || boton == "Proceed With Order")
     click_button("bSubmit")
   end
