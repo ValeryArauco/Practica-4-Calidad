@@ -11,7 +11,7 @@ Background:
     | Glacier Sun Glasses      | 1        |
     | Hiking Boots             | 1        |
     And hago click sobre el boton "Place An Order"
-    Given hago click en el boton "Proceed With Order"
+    And hago click en el boton "Proceed With Order"
 
 Scenario: Confirmar compra con datos repetisdos en casilla "Bill To" y "Ship To" 
     When Lleno las casillas para factura en "Bill To"
@@ -36,3 +36,20 @@ Scenario: Confirmar compra con datos repetisdos en casilla "Bill To" y "Ship To"
     And hago click en el boton "Place The Order"
     Then soy redirigido a la página "OnLine Store Receipt"
     
+Scenario: Copiar la informacion introducida en "Bill To" a "Ship To" 
+    When Lleno las casillas para factura en "Bill To"
+    |Name       | Pepito             |
+    |Address 	| Muyurina           |
+    |City 	    | Cochabamba         |
+    |State      | Cochabamba         | 	
+    |Zip        | 33125              |
+    |Phone   	| 123-123-1234       |
+    |E-mail  	| pepe@pepazo.com    |
+    And Hago click en la casilla "Same as Bill To"
+    Then deberia tener los mismos datos en la casillas de Ship To
+    |Name       | Pepito             |
+    |Address 	| Muyurina           |
+    |City 	    | Cochabamba         |
+    |State      | Cochabamba         |
+    |Zip        | 33125              |
+    |Phone   	| 123-123-1234       |
