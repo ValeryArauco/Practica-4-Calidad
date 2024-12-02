@@ -1,4 +1,4 @@
-Feature: Resetear el catalogo
+Feature: 
     Como un usuario de la página
     quiero poder reiniciar mi orden de pedido
     para restablecer todas las cantidades de los productos seleccionados a cero.

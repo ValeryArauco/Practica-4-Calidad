@@ -1,4 +1,4 @@
-Feature: Catálogo
+Feature:
     Como un usuario de la pagina 
     quiero ver la lista de items ofertados en el catálogo
     para ordenar aquellos que me interesan.
