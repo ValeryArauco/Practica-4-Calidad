@@ -3,22 +3,27 @@ Feature: Catálogo
     quiero ver la lista de items ofertados en el catálogo
     para ordenar aquellos que me interesan.
 
-‌Background: Acceso al catálogo
-Given Estoy en el sitio de GMO Online
+Background:
+    Given Estoy en el sitio de GMO online
+    And hago click en el boton "Enter GMO Online"
 
-Scenario: Ver todos los items
-    When hago click en "Enter GMO OnLine"
-    Then veo la lista de items
 
-    | Item Number | Item Name | Unit Price	| Order Quantity |
-    | <numero> | <item> | <precio> | <cantidad> |
 
-    Examples:
-    | numero | item | precio | cantidad |
-    | 1000 | 3 Person Dome Tent     | $ 299.99 | 0 |
-    | 1001 | External Frame Backpack| $ 179.95 | 0 |
-    | 1002 | Glacier Sun Glasses    | $ 67.99 | 0 |
-    | 1003 | Padded Socks           | $ 19.99 | 0 |
-    | 1004 | Hiking Boots           | $ 109.90 | 0 |
-    | 1005 | Back Country Shorts    | $ 24.95 | 0 |
-
+Scenario: Resetear el formulario
+    When ingreso cantidades validas a ordenar para los items
+        | item                     | cantidad |
+        | 3 Person Dome Tent       | 1        |
+        | External Frame Backpack  | 2        |
+        | Glacier Sun Glasses      | 3        |
+        | Padded Socks             | 4        |
+        | Hiking Boots             | 5        |
+        | Back Country Shorts      | 6        |
+    And hago click sobre el boton "Reset Form"
+    Then la cantidad de items a ordenar se reinician a cero
+        | item                     |
+        | 3 Person Dome Tent       |
+        | External Frame Backpack  |
+        | Glacier Sun Glasses      |
+        | Padded Socks             |
+        | Hiking Boots             |
+        | Back Country Shorts      |
