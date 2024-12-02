@@ -1,6 +1,7 @@
 Feature: 
-Como un usuario de la pagina quiero acceder al apartado de prueba
-para conocer las caracteristicas de los navegadores
+    Como un usuario de la pagina 
+    quiero acceder al apartado de prueba
+    para conocer las caracteristicas de los navegadores
 
 Background:
     Given Estoy en el sitio de GMO online

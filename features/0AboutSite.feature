@@ -1,6 +1,7 @@
 Feature: 
-Como un usuario de la pagina quiero acceder a la informacion
-sobre como fue hecha la pagina, asi conozco las tecnologias usadas
+    Como un usuario de la pagina 
+    quiero acceder a la informacion sobre como fue hecha la pagina
+    para conocer las tecnologias usadas
 ‌
 Background:
     Given Estoy en el sitio de GMO online

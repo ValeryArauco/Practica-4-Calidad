@@ -1,5 +1,7 @@
 Feature: 
-Como un usuario de la pagina quiero hacer conocer que me gusto la pagina
+    Como un usuario de la pagina 
+    quiero hacer conocer que me gusto la pagina
+    para poder comunicarse via email con el encargado del sitio
 
 Background:
     Given Estoy en el sitio de GMO online

@@ -1,4 +1,5 @@
-Feature: Como usuario
+Feature: 
+    Como un usuario de la pagina
     Quiero ver el detalle de un articulo
     disponible en la lista de articulos
 
