@@ -39,3 +39,36 @@ When(/^Lleno las casillas de tarjeta$/) do |table|
     find('input[name="CardDate"]').set(informacion["Expiration"])
 end
 
+When(/^Hago click en la casilla "Same as Bill To"$/) do
+    check('shipSameAsBill')
+end
+
+
+Then(/^deberia tener los mismos datos en la casillas de Ship To$/) do |table|
+    formulario = table.rows_hash
+
+    casillaName = find('input[name="shipName"]').value
+    casillaAddress = find('input[name="shipAddress"]').value
+    casillaCity = find('input[name="shipCity"]').value
+    casillaState = find('input[name="shipState"]').value
+    casillaZip = find('input[name="shipZipCode"]').value
+    casillaPhone = find('input[name="shipPhone"]').value
+
+    expect(casillaName).to eq(formulario["Name"])
+    expect(casillaAddress).to eq(formulario["Address"])
+    expect(casillaCity).to eq(formulario["City"])
+    expect(casillaState).to eq(formulario["State"])
+    expect(casillaZip).to eq(formulario["Zip"])
+    expect(casillaPhone).to eq(formulario["Phone"])
+end
+
+And(/^ingreso cantidades validas a ordenar para los items$/) do |table|
+    within('body > form > table > tbody > tr:nth-child(2) > td > div > center > table') do
+      table.hashes.each do |row|
+        item = row['item']
+        cantidad = row['cantidad']
+        item_row = find('tr', text: item)
+        item_row.find('input[type="text"]').set(cantidad)
+      end
+    end
+end
