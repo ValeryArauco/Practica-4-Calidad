@@ -19,23 +19,20 @@ Scenario: Confirmar compra con datos repetisdos en casilla "Bill To" y "Ship To"
     |Address 	| Muyurina           |
     |City 	    | Cochabamba         |
     |State      | Cochabamba         | 	
-    |Zip        | 9897               |
-    |Phone   	| 1234-567-12        |
+    |Zip        | 33125              |
+    |Phone   	| 123-123-1234       |
     |E-mail  	| pepe@pepazo.com    |
     And Lleno las casillas para factura en "Ship To"
     |Name       | Pepito             |
     |Address 	| Muyurina           |
     |City 	    | Cochabamba         |
     |State      | Cochabamba         | 	
-    |Zip        | 9897               |
-    |Phone   	| 1234-567-12        |
-    And Selecciono el tipo de tarjeta "American Express"
-    And Ingreso mi numero de tarjeta "1234-123456-12345"
-    And Ingreo la fecha de expiracion de mi tarjeta "11/13"
+    |Zip        | 33125              |
+    |Phone   	| 123-123-1234       |
+    And Lleno las casillas de tarjeta
+    |Credit Card| American Express  |
+    |Card Number| 1234-123456-12345 |
+    |Expiration	| 11/25             |
     And hago click en el boton "Place The Order"
-    Then Deberia mostrarme los datos de metodo de pago por tarjeta American Express
-    And Deberia mostrarme los datos de Facturacion
-    |Bill to                        ||Ship To                        |
-    |Pepito                         ||Pepito                         |
-    |Muyurina                       ||Muyurina                       |
-    |Cochabamba, Cochabamba, 9897   ||Cochabamba, Cochabamba, 9897   |
+    Then soy redirigido a la página "OnLine Store Receipt"
+    

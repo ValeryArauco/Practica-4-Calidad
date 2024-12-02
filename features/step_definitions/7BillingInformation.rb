@@ -25,21 +25,17 @@ When(/^Lleno las casillas para factura en "([^"]*)"$/) do |casilla,table|
     casillaPhone = find('input'+phone).set(informacion["Phone"])
 end
 
-When(/^Selecciono el tipo de tarjeta "([^"]*)"$/) do |tipo|
-    if(tipo == "American Express")
+When(/^Lleno las casillas de tarjeta$/) do |table|
+    informacion = table.rows_hash
+    if(informacion["Credit Card"] == "American Express")
         valor = "AMEX"
-    elsif(tipo == "MasterCard")
+    elsif(informacion["Credit Card"] == "MasterCard")
         valor = "MasterCard"
-    elsif(tipo == "Visa")
+    elsif(informacion["Credit Card"] == "Visa")
         valor = "Visa"
     end
     find("[name='CardType']").find("option[value='#{valor}']").select_option
+    find('input[name="CardNumber"]').set(informacion["Card Number"])
+    find('input[name="CardDate"]').set(informacion["Expiration"])
 end
 
-When(/^Ingreso mi numero de tarjeta "([^"]*)"$/) do |numero|
-    find('input[name="CardNumber"]').set(numero)
-end
-
-When(/^Ingreo la fecha de expiracion de mi tarjeta "([^"]*)"$/) do |fecha|
-    find('input[name="CardDate"]').set(fecha)
-end
