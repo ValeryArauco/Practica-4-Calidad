@@ -8,6 +8,6 @@ When(/^hago click en el producto "([^"]*)"$/) do |item|
   end
 end
 
-Then(/^observo el detalle del "([^"]*)"$/) do |item| 
-  expect(page).to have_content(item)
+Then(/^observo el "([^"]*)" del producto$/) do |detalle| 
+  expect(page).to have_content(detalle)
 end
