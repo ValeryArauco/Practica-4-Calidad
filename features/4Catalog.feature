@@ -39,7 +39,7 @@ Scenario: No seleccionar ningún item
     | External Frame Backpack|
 
 
-Scenario: Ver error al ingresar cantidad no válida
+Scenario Outline: Ver error al ingresar cantidad no válida
     When ingreso una "<cantidad no valida>" en el campo "Order Quantity" para un "<item>"
     And hago click sobre el boton "Place An Order"
     Then el sistema me muestra la advertencia "Please enter only digits in this field."
