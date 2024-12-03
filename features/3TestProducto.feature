@@ -7,6 +7,16 @@ Background:
     Given Estoy en el sitio de GMO online
     And hago click en el boton "Enter GMO Online"
 
-Scenario: Ver un producto disponible
-    When hago click en un producto "Padded Socks"
-    Then observo el detalle del producto "Padded Socks"
+Scenario: No seleccionar ningún item
+    When hago click en el producto "<item>"
+    Then observo el detalle del "<item>"
+
+    Examples:
+    | item                      |
+    | 3 Person Dome Tent        |
+    | External Frame Backpack   |
+    | Glacier Sun Glasses       |
+    | Padded Socks              |
+    | Hiking Boots              |
+    | Back Country Shorts       |
+

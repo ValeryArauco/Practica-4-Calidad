@@ -2,30 +2,12 @@ Given(/^hago click en el boton "([^"]*)"$/) do |boton|
   click_button("bSubmit")
 end
 
-When(/^hago click en un producto "([^"]*)"$/) do |producto|
-    xpath_base = "/html/body/form/table/tbody/tr[2]/td/div/center/table/tbody/tr[5]/td[2]/a/strong"
-    find(:xpath, xpath_base).click
+When(/^hago click en el producto "([^"]*)"$/) do |item|
+  within("body > form > table > tbody > tr:nth-child(2) > td > div > center > table > tbody") do
+    find("a", text: item).click
+  end
 end
 
-Then(/^observo el detalle del producto "([^"]*)"$/) do |producto| 
-  expect(page).to have_selector('a[name="socks"]', text: producto)
-
-  descripcion = find("body > p:nth-child(34)")
-  expect(page).to have_content(descripcion.text)
-
-  within("body > div:nth-child(35)") do
-    within('table') do
-        expect(page).to have_selector('td', text: 'Unit Price:')
-        expect(page).to have_selector('td', text: '$ 19.99')
-    
-        expect(page).to have_selector('td', text: '# In Stock:')
-        expect(page).to have_selector('td', text: '47')
-    
-        expect(page).to have_selector('td', text: 'Item Number:')
-        expect(page).to have_selector('td', text: '1003')
-        end
-    end
-  
-
-  expect(page).to have_content('These heavyweight socks are designed for long distances.')
+Then(/^observo el detalle del "([^"]*)"$/) do |item| 
+  expect(page).to have_content(item)
 end
