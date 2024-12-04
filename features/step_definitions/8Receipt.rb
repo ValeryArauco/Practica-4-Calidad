@@ -25,6 +25,12 @@ Then(/^debería mostrarse que los datos de facturacion y envio coincidan con los
     expect(casillaCity).to eq(formulario["City"]+", "+formulario["State"]+" "+formulario["Zip"])
     expect(casillaPhone).to eq(formulario["Phone"])
 
+    within('body > table:nth-child(5) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > div > center > table') do
+        casillaTarjeta = find('tr', text: "Method of Payment:").find('strong:nth-child(1)').text
+    
+        expect(casillaTarjeta).to eq(detalles["Method"])
+    end
+
     #Validacion metodo de pago
     casillaTarjeta = find('body > table:nth-child(5) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > div > center > table > tbody > tr:nth-child(4) > td:nth-child(1) > strong').text
 
@@ -47,15 +53,15 @@ end
 
 And('los detalles de precios deberian ser') do |table|
     detalles = table.rows_hash
-    productoTotal = find('body > table:nth-child(5) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > div > center > table > tbody > tr:nth-child(4) > td:nth-child(3)').text
-    salesTax = find('body > table:nth-child(5) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > div > center > table > tbody > tr:nth-child(5) > td:nth-child(2)').text
-    shipping = find('body > table:nth-child(5) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > div > center > table > tbody > tr:nth-child(6) > td:nth-child(2)').text
-    total = find('body > table:nth-child(5) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > div > center > table > tbody > tr:nth-child(7) > td:nth-child(2)').text
-
-    
-    expect(productoTotal).to eq(detalles["Product Total"])
-    expect(salesTax).to eq(detalles["Sales Tax"])
-    expect(shipping).to eq(detalles["Shipping & Handling"])
-    expect(total).to eq(detalles["Grand Total"])
-   
+    within('body > table:nth-child(5) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > div > center > table') do
+        productoTotal = find('tr', text: "Product Total").find('td:nth-child(3)').text
+        salesTax = find('tr', text: "Sales Tax").find('td:nth-child(2)').text
+        shipping = find('tr', text: "Shipping & Handling").find('td:nth-child(2)').text
+        total = find('tr', text: "Grand Total").find('td:nth-child(2)').text
+       
+        expect(productoTotal).to eq(detalles["Product Total"])
+        expect(salesTax).to eq(detalles["Sales Tax"])
+        expect(shipping).to eq(detalles["Shipping & Handling"])
+        expect(total).to eq(detalles["Grand Total"])
+    end
 end
