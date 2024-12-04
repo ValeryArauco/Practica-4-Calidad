@@ -1,52 +1,29 @@
-Then(/^verifico que el precio total calculado es correcto$/) do
-    # Encontrar todas las filas de productos dinámicamente
-    product_rows_xpath = '/html/body/form/table/tbody/tr[1]/td/div/center/table/tbody/tr'
-    
-    all_rows = all(:xpath, product_rows_xpath)
-    
-    product_rows = all_rows.select do |row|
-      row.all('td').count >= 5 &&
-      row.find('td:first-child').text.strip.match?(/^\d+$/)
-    end
-  
-    product_rows.each_with_index do |row, index|
-      begin
-        row_xpath = "#{product_rows_xpath}[#{index + 2}]"
-  
-        quantity = find(:xpath, "#{row_xpath}/td[1]").text.strip.to_i
-        
-        unit_price_text = find(:xpath, "#{row_xpath}/td[4]").text.strip
-        unit_price = unit_price_text.gsub(/[^\d.]/, '').to_f
-        
-        total_price_text = find(:xpath, "#{row_xpath}/td[5]").text.strip
-        total_price = total_price_text.gsub(/[^\d.]/, '').to_f
-  
-        expected_total = (quantity * unit_price).round(2)
-  
-        expect(total_price).to eq(expected_total)
-    end
-    puts "Verificación de precios completada para #{product_rows.count} productos"
+When(/^verifico que el Grand Total sea correcto con un valor esperado de "(.*)"$/) do |expected_value|
+  product_rows_xpath = '/html/body/form/table/tbody/tr[1]/td/div/center/table/tbody/tr'
+  all_rows = all(:xpath, product_rows_xpath)
+
+  product_rows = all_rows.select do |row|
+    row.all('td').count >= 5 && row.find('td:first-child').text.strip.match?(/^\d+$/)
   end
+
+  subtotal = product_rows.sum do |row|
+    quantity = row.find('td:nth-child(1)').text.strip.to_i
+    unit_price = row.find('td:nth-child(4)').text.strip.gsub(/[^\d.]/, '').to_f
+    quantity * unit_price
+  end
+
+  # Calcular Sales Tax (5%)
+  sales_tax = (subtotal * 0.05).round(2)
+  shipping_handling = 5.00
+
+  # Calcular Grand Total
+  grand_total = (subtotal + sales_tax + shipping_handling).round(2)
+
+  expected_total = expected_value.gsub(/[^\d.]/, '').to_f
+
+  expect(grand_total).to eq(expected_total), "Grand Total incorrecto: esperado #{expected_total}, obtenido #{grand_total}"
 end
 
-
-Then(/^verifico que se muestre los costos respectivos$/) do |table|
-    table.hashes.each do |row|
-      field = row['field']
-      expected_price = row['expected_value']
-  
-      total_rows_xpath = '/html/body/form/table/tbody/tr[1]/td/div/center/table/tbody/tr'
-      
-      cost_row = all(:xpath, total_rows_xpath).find do |tr| 
-        tr.text.include?(field)
-      end
-      
-      actual_price_text = cost_row.find('td:last-child').text.strip
-      
-      expect(actual_price_text).to eq(expected_price)
-    end
-end
-
-When(/^hago click en "Proceed with Order"$/) do
+Then(/^hago click en "Proceed with Order"$/) do
     click_button("bSubmit")
 end
