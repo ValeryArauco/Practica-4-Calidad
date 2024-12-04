@@ -39,8 +39,7 @@ Scenario: Validar la información ingresada
     |State      | Cochabamba         | 	
     |Zip        | 33125              |
     |Phone   	| 123-123-1234       |
-    |Method     | AMEX               |
-
+    And deberia validar que el metodo de pago coincida con el ingresado "AMEX"
     And deberia mostrar los productos seleccionados
     | Qty | Product                  | Status        | Unit Price | Total Price |
     | 1   | Glacier Sun Glasses      | To Be Shipped | $ 67.99	  | $ 67.99	    |

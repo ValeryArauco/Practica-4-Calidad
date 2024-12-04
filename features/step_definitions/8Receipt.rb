@@ -22,15 +22,14 @@ Then(/^debería mostrarse que los datos de facturacion y envio coincidan con los
         expect(casillaCity).to eq(formulario["City"]+", "+formulario["State"]+" "+formulario["Zip"])
         expect(casillaPhone).to eq(formulario["Phone"])
     end
-
-    #Validacion metodo de pago
-    within('body > table:nth-child(5) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > div > center > table') do
-        casillaTarjeta = find('tr', text: "Method of Payment:").find('strong:nth-child(1)').text
-    
-        expect(casillaTarjeta).to eq(formulario["Method"])
-    end
 end
 
+And(/^deberia validar que el metodo de pago coincida con el ingresado "(.*)"$/) do |metodo|
+    within('body > table:nth-child(5) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > div > center > table') do
+        casillaTarjeta = find('tr', text: "Method of Payment:").find('strong:nth-child(1)').text
+        expect(casillaTarjeta).to eq(metodo)
+    end
+end
 
 And(/^deberia mostrar los productos seleccionados$/) do |table|
     productos = table.hashes
@@ -46,7 +45,7 @@ And(/^deberia mostrar los productos seleccionados$/) do |table|
 end
 
 
-And('los detalles de precios deberian ser') do |table|
+And(/^los detalles de precios deberian ser$/) do |table|
     detalles = table.rows_hash
     within('body > table:nth-child(5) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > div > center > table') do
         productoTotal = find('tr', text: "Product Total").find('td:nth-child(3)').text
