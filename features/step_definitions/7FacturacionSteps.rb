@@ -73,7 +73,33 @@ And(/^ingreso cantidades validas a ordenar para los items$/) do |table|
     end
 end
 
-Then(/^deberia mostrarme una alerta de invalidacion de "([^"]*)"$/) do |casilla|
+Given(/^cambio el "([^"]*)" en la "([^"]*)" de "([^"]*)"$/) do |valor,casilla,tipo|
+    ubiCasillas = {
+        "Bill" => {
+            "Name" => '[name="billName"]',
+            "Address" => '[name="billAddress"]',
+            "City" => '[name="billCity"]',
+            "State" => '[name="billState"]',
+            "Zip" => '[name="billZipCode"]',
+            "Phone" => '[name="billPhone"]',
+            "E-mail" => '[name="billEmail"]',
+            "Card Number" => '[name="CardNumber"]',
+            "Expiration" => '[name="CardDate"]'
+        },               
+        "Ship" => {
+            "Name" => '[name="shipName"]',               
+            "Address" => '[name="shipAddress"]',             
+            "City" => '[name="shipCity"]',                
+            "State" => '[name="shipState"]',               
+            "Zip" => '[name="shipZipCode"]',
+            "Phone" => '[name="shipPhone"]',
+        }
+    }
+    find('input'+ubiCasillas[tipo][casilla]).set(valor)
+end
+
+
+Then(/^deberia mostrarme una alerta de invalidacion de la "([^"]*)"$/) do |casilla|
     errores = {"Phone" => "phone number", 
                 "Zip" => "zip code", 
                 "Card Number" => "card number of the form '1234-123456-12345'",
