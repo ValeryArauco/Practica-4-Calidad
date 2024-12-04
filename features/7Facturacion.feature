@@ -69,7 +69,7 @@ Scenario Outline: Introduzco datos invalidos en las casillas
     |Credit Card| American Express  |
     |Card Number| 1234-123456-12345 |
     |Expiration	| 11/25             |
-    Given cambio el "<valor>" en la "<casilla>" de "<Bill o Ship>"
+    And cambio el "<valor>" en la "<casilla>" de "<Bill o Ship>"
     And hago click en el boton "Place The Order"
     Then deberia mostrarme una alerta de invalidacion de la "<casilla>" 
 

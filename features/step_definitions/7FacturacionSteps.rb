@@ -73,7 +73,7 @@ And(/^ingreso cantidades validas a ordenar para los items$/) do |table|
     end
 end
 
-Given(/^cambio el "([^"]*)" en la "([^"]*)" de "([^"]*)"$/) do |valor,casilla,tipo|
+When(/^cambio el "([^"]*)" en la "([^"]*)" de "([^"]*)"$/) do |valor,casilla,tipo|
     ubiCasillas = {
         "Bill" => {
             "Name" => '[name="billName"]',
