@@ -16,8 +16,7 @@
 3. [Demostración de Funciones y Aplicaciones](#-demostración-de-funciones-y-aplicaciones)
 4. [Acceso al Proyecto](#-acceso-al-proyecto)
 5. [Tecnologías Utilizadas](#-tecnologías-utilizadas)
-6. [Personas Desarrolladoras del Proyecto](#-personas-desarrolladoras-del-proyecto)
-7. [Licencia](#-licencia)
+
 
 ---
 
@@ -68,15 +67,46 @@ El proyecto se encuentra en **fase de desarrollo**. Actualmente, incluye pruebas
    Para ejecutar un archivo .feature específico, utiliza el siguiente comando:
 
    ```bash
-   cucumber features\nombre_del_feature_a_ejecutar.feature
+   cucumber features\<nombre-del-feature>.feature
    ``` 
    Ejemplo:
    ```bash
    cucumber features\8Receipt.feature  
    ``` 
 
+    Para filtrar pruebas utilizando etiquetas especificadas en los escenarios, utiliza:
+   ```bash
+   cucumber features/<nombre-del-feature>.feature --tags '@<nombre-de-la-etiqueta>'
+   ```
+   Ejemplo:
+   ```bash
+   cucumber features/1calc.feature --tags '@SR'
+   ```
+
 4. **Explorar los resultados**  
    Los resultados de las pruebas se mostrarán en la consola. Si configuraste un formato de salida adicional, como HTML, los resultados se guardarán en un archivo de reporte.  
+   
+   4.1. **Reporte con formato detallado en consola**
+   
+   Genera una salida detallada en la consola para las pruebas etiquetadas:
+   ```bash
+   cucumber features/<nombre-del-feature>.feature -t @<nombre-de-la-etiqueta> --format pretty
+   ```
+   Ejemplo:
+   ```bash
+   cucumber features/1calc.feature -t @SR --format pretty
+   ```
+
+   4.2. **Reporte en formato HTML**
+   
+   Genera un reporte HTML y guarda el archivo en la ruta especificada:
+   ```bash
+   cucumber features/<nombre-del-feature>.feature -f html -o <ruta-del-reporte>.html
+   ```
+   Ejemplo:
+   ```bash
+   cucumber features/1calc.feature -f html -o reports/viernes.html
+   ```
 
 ---
 
@@ -86,15 +116,6 @@ El proyecto se encuentra en **fase de desarrollo**. Actualmente, incluye pruebas
 - **Gherkin**
 - **HTML**
 
----
+ 
 
-## 👩‍💻 Personas Desarrolladoras del Proyecto  
-- **Juan Pablo Montoya** - Estudiante de Ingeniería de Sistemas.  
-- **Elian Tito** - Estudiante de Ingeniería de Sistemas.  
-- **Valery Arauco** - Estudiante de Ingeniería de Sistemas.  
-
----
-
-## 📝 Licencia  
-Este proyecto está bajo la licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
 
