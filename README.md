@@ -4,10 +4,9 @@
 
 
 ## 🚀 Insignias  
-![Estado del proyecto](https://img.shields.io/badge/Estado-En%20proceso-yellow)
-![Licencia MIT](https://img.shields.io/badge/Licencia-MIT-blue)
+![Estado del Proyecto](https://img.shields.io/badge/Estado-En%20progreso-yellow)
+![Automated Tests](https://img.shields.io/badge/Automated%20Tests-En%20progreso-orange)
 ![BDD Implementado](https://img.shields.io/badge/BDD-Cucumber-green)
-
 ---
 
 ## 📋 Índice  
