@@ -1,7 +1,7 @@
 Feature: 
     Como un usuario de la página 
-    quiero ver la lista de items ofertados en el catálogo
-    para explorar los productos disponibles.
+    quiero que solo se permitan cantidades válidas en el campo de pedido
+    para evitar problemas al procesar mi compra.
 
 Background:
     Given Estoy en el sitio de GMO online
