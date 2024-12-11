@@ -1,7 +1,6 @@
 Feature: Como Administrador
     quiero comprobar si el proceso de
-    Facturacion es correcto en formato
-    estadounidense
+    Facturacion es correcto
 
 Background:
     Given Estoy en el sitio de GMO online
