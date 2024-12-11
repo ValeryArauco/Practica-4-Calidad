@@ -1,4 +1,4 @@
-require 'capybara/dsl'
+
 class FacturationForm
     include Capybara::DSL
 
