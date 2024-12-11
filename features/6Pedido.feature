@@ -12,7 +12,7 @@ Scenario: Verificar el total de un item al pedido
     When ingreso una "5" en el campo "Order Quantity" para un "3 Person Dome Tent "
     And hago click sobre el boton "Place An Order"
     And soy redirigido a la página "Place Order"
-    And verifico que el Grand Total sea correcto con un valor esperado de "$ 1579.95"
+    And verifico que el Grand Total sea correcto
     Then hago click en "Proceed with Order"
     And soy redirigido a la página "Billing Information"
 
@@ -23,6 +23,6 @@ Scenario: Verificar el total de mas de dos items al pedido
     | External Frame Backpack  | 2        |
     And hago click sobre el boton "Place An Order"
     And soy redirigido a la página "Place Order"
-    And verifico que el Grand Total sea correcto con un valor esperado de "$ 3217.80"
+    And verifico que el Grand Total sea correcto 
     Then hago click en "Proceed with Order"
     And soy redirigido a la página "Billing Information"
