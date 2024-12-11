@@ -4,6 +4,7 @@ require 'capybara/dsl'
 require 'capybara/cucumber'
 require 'capybara-screenshot/cucumber'
 
+
 Capybara.default_driver = :selenium
 
 # Set the host the Capybara tests should be run against
@@ -33,4 +34,5 @@ end
 CapybaraDriverRegistrar.register_selenium_driver(:chrome)
 Capybara.run_server = false
 #World(Capybara)
+Dir[File.join(File.dirname(__FILE__), 'page_objects/**/*.rb')].each { |file| require file }
 

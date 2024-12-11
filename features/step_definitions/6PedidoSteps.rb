@@ -27,14 +27,47 @@ When(/^verifico que el Grand Total sea correcto$/) do
   expect(page_grand_total).to eq(calculated_grand_total), "Grand Total incorrecto: #{page_grand_total}, calculado #{calculated_grand_total}"
 end
 
+When(/^presiono la tecla "Enter"$/) do
+  begin
+    cantidad_input = find('input[type="text"]', match: :first, visible: true)
+    cantidad_input.send_keys(:enter)
+    sleep(1)
+    begin
+      alert = page.driver.browser.switch_to.alert
+      if alert
+        puts "Alerta detectada: #{alert.text}"
+        alert.accept
+      end
+    rescue => e
+      puts "No se detectó alerta: #{e.message}"
+    end
+  rescue => e
+    puts "Error al presionar Enter: #{e.message}"
+    raise
+  end
+end
+
 Then(/^hago click en "Proceed with Order"$/) do
     click_button("bSubmit")
 end
 
-# Recomendaciones ->Juanpi
+Then(/^verifico que todos los productos tengan estado "([^"]*)"$/) do |expected_status|
+  product_rows_xpath = "/html/body/form/table/tbody/tr[1]/td/div/center/table/tbody/tr"
+  product_rows = all(:xpath, product_rows_xpath)
+  
+  valid_product_rows = product_rows.select do |row|
+    row.all('td').count >= 5 && row.find('td:first-child').text.strip.match?(/^\d+$/)
+  end
+  
+  delivery_statuses = valid_product_rows.map do |row|
+    status_cell = row.find(:xpath, ".//td[3]")
+    status_cell.text.strip
+  end
 
-# ENTRE TODOS
+  # Comprobar que todos los estados son iguales al esperado
+  delivery_statuses.each_with_index do |status, index|
+    expect(status).to eq(expected_status), 
+      "El estado de envío del producto #{index + 1} ('#{status}') no coincide con '#{expected_status}'"
+  end
+end
 
-# - INVESTIGAR SMOKE TEST 
-# - AÑADIR MAS ESCENARIOS SI ES POSIBLE A NUESTROS ARCHIVOS
-# - OPCIONAL : AÑADIR OBJECT MODEL A NUESTROS ARCHIVOS
