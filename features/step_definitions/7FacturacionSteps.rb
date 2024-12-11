@@ -41,14 +41,5 @@ end
 
 
 Then(/^deberia mostrarme una alerta de invalidacion de la "([^"]*)"$/) do |casilla|
-    # errores = {"Phone" => "phone number", 
-    #             "Zip" => "zip code", 
-    #             "Card Number" => "card number of the form '1234-123456-12345'",
-    #             "Expiration" => "date of the form 'MM/YY'"}
-    # if(!errores.has_key?(casilla))
-    #     message = "please enter only letters"
-    # else
-    #     message = "Please enter a valid " + errores[casilla] + " in this field."
-    # end
     expect(page.driver.browser.switch_to.alert.text).to eq(@formulario.msj_error(casilla))
 end
