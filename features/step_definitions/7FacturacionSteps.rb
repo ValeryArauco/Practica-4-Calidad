@@ -6,39 +6,22 @@ end
 
 When(/^Lleno las casillas de tarjeta$/) do |table|
     informacion = table.rows_hash
-    if(informacion["Credit Card"] == "American Express")
-        valor = "AMEX"
-    elsif(informacion["Credit Card"] == "MasterCard")
-        valor = "MasterCard"
-    elsif(informacion["Credit Card"] == "Visa")
-        valor = "Visa"
-    end
-    find("[name='CardType']").find("option[value='#{valor}']").select_option
-    find('input[name="CardNumber"]').set(informacion["Card Number"])
-    find('input[name="CardDate"]').set(informacion["Expiration"])
+    @formulario.llenar_form_tarjeta(informacion)
 end
 
 When(/^Hago click en la casilla "Same as Bill To"$/) do
-    check('shipSameAsBill')
+    @formulario.click_button_SameAsBillTo()
 end
 
 
 Then(/^deberia tener los mismos datos en la casillas de Ship To$/) do |table|
     formulario = table.rows_hash
-
-    casillaName = find('input[name="shipName"]').value
-    casillaAddress = find('input[name="shipAddress"]').value
-    casillaCity = find('input[name="shipCity"]').value
-    casillaState = find('input[name="shipState"]').value
-    casillaZip = find('input[name="shipZipCode"]').value
-    casillaPhone = find('input[name="shipPhone"]').value
-
-    expect(casillaName).to eq(formulario["Name"])
-    expect(casillaAddress).to eq(formulario["Address"])
-    expect(casillaCity).to eq(formulario["City"])
-    expect(casillaState).to eq(formulario["State"])
-    expect(casillaZip).to eq(formulario["Zip"])
-    expect(casillaPhone).to eq(formulario["Phone"])
+    expect(@formulario.shipName.value).to eq(formulario["Name"])
+    expect(@formulario.shipAddress.value).to eq(formulario["Address"])
+    expect(@formulario.shipCity.value).to eq(formulario["City"])
+    expect(@formulario.shipState.value).to eq(formulario["State"])
+    expect(@formulario.shipZipCode.value).to eq(formulario["Zip"])
+    expect(@formulario.shipPhone.value).to eq(formulario["Phone"])
 end
 
 And(/^ingreso cantidades validas a ordenar para los items$/) do |table|
@@ -53,40 +36,19 @@ And(/^ingreso cantidades validas a ordenar para los items$/) do |table|
 end
 
 When(/^cambio el "([^"]*)" en la "([^"]*)" de "([^"]*)"$/) do |valor,casilla,tipo|
-    ubiCasillas = {
-        "Bill" => {
-            "Name" => '[name="billName"]',
-            "Address" => '[name="billAddress"]',
-            "City" => '[name="billCity"]',
-            "State" => '[name="billState"]',
-            "Zip" => '[name="billZipCode"]',
-            "Phone" => '[name="billPhone"]',
-            "E-mail" => '[name="billEmail"]',
-            "Card Number" => '[name="CardNumber"]',
-            "Expiration" => '[name="CardDate"]'
-        },               
-        "Ship" => {
-            "Name" => '[name="shipName"]',               
-            "Address" => '[name="shipAddress"]',             
-            "City" => '[name="shipCity"]',                
-            "State" => '[name="shipState"]',               
-            "Zip" => '[name="shipZipCode"]',
-            "Phone" => '[name="shipPhone"]',
-        }
-    }
-    find('input'+ubiCasillas[tipo][casilla]).set(valor)
+    @formulario.cambio_Valor_Casilla(tipo,casilla,valor)
 end
 
 
 Then(/^deberia mostrarme una alerta de invalidacion de la "([^"]*)"$/) do |casilla|
-    errores = {"Phone" => "phone number", 
-                "Zip" => "zip code", 
-                "Card Number" => "card number of the form '1234-123456-12345'",
-                "Expiration" => "date of the form 'MM/YY'"}
-    if(!errores.has_key?(casilla))
-        message = "please enter only letters"
-    else
-        message = "Please enter a valid " + errores[casilla] + " in this field."
-    end
-    expect(page.driver.browser.switch_to.alert.text).to eq(message)
+    # errores = {"Phone" => "phone number", 
+    #             "Zip" => "zip code", 
+    #             "Card Number" => "card number of the form '1234-123456-12345'",
+    #             "Expiration" => "date of the form 'MM/YY'"}
+    # if(!errores.has_key?(casilla))
+    #     message = "please enter only letters"
+    # else
+    #     message = "Please enter a valid " + errores[casilla] + " in this field."
+    # end
+    expect(page.driver.browser.switch_to.alert.text).to eq(@formulario.msj_error(casilla))
 end

@@ -34,5 +34,6 @@ end
 CapybaraDriverRegistrar.register_selenium_driver(:chrome)
 Capybara.run_server = false
 #World(Capybara)
+#Cargamos las clases
 Dir[File.join(File.dirname(__FILE__), 'page_objects/**/*.rb')].each { |file| require file }
 
